@@ -1,0 +1,12 @@
+#Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine on
+
+# Если запрос не начинается с web, добавляем его
+RewriteCond %{REQUEST_URI} !^/(web)
+RewriteRule (.*) /basic/web/$1
+
+# Если файл или каталог не существует, идём к /web/index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . basic/web/index.php
