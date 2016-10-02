@@ -27,24 +27,13 @@ $project = isset($project) ? $project : null;
                 <div class="panel-heading">
                     <h3><?=$stage->title;?></h3>
                 </div>
-                <div class="task-list panel-body">
-                    <div class="task-item well">
-                        Task name <span class="badge">4</span><br>
-                        Maxim Kozachenko
+                <?php foreach ($stage->tasks as $task): ?>
+                    <div class="task-list panel-body">
+                        <div class="task-item well">
+                            <?=$task->title;?> <span class="badge"><?=$task->priority;?></span><br>
+                        </div>
                     </div>
-                </div>
-                <div class="task-list panel-body">
-                    <div class="task-item well">
-                        Task name <span class="badge">4</span><br>
-                        Maxim Kozachenko
-                    </div>
-                </div>
-                <div class="task-list panel-body">
-                    <div class="task-item well">
-                        Task name <span class="badge">4</span><br>
-                        Maxim Kozachenko
-                    </div>
-                </div>
+                <?endforeach;?>
             </div>
         </div>
     <?php endforeach;?>

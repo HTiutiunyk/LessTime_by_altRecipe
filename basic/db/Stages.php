@@ -2,7 +2,7 @@
 
 namespace app\db;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "stages".
@@ -12,8 +12,9 @@ use Yii;
  * @property string $title
  * @property string $description
  * @property integer $order
+ * @property Tasks[] $tasks
  */
-class Stages extends \yii\db\ActiveRecord
+class Stages extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -48,5 +49,11 @@ class Stages extends \yii\db\ActiveRecord
             'description' => 'Description',
             'order' => 'Order',
         ];
+    }
+
+    public function getTasks() {
+        return Tasks::find()
+            ->where(['stage_id' => $this->id])
+            ->all();
     }
 }
