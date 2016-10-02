@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 
+use app\db\Stages;
 use app\db\Tasks;
 use app\models\TaskCreation;
 use Yii;
@@ -25,8 +26,23 @@ class TaskController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $task = new Tasks();
+            $projectId = \Yii::$app->request->get('projectId');
 
-            return $this->render('create-confirm', ['model' => $model]);
+            $firstStage = Stages::find()
+                ->where(['project_id' => $projectId])
+                ->orderBy('order')
+                ->all()[0];
+
+            $task->stage_id = $firstStage->id;
+            $task->title = $model->title;
+            $task->description = $model->description;
+            $task->priority = $model->priority;
+
+            if ($task->save()) {
+                return $this->redirect(['/project', 'id' => $projectId]);
+            } else {
+                return $this->render('create-confirm', ['model' => $model]);
+            }
         } else {
             // либо страница отображается первый раз, либо есть ошибка в данных
             return $this->render('create', ['model' => $model]);
