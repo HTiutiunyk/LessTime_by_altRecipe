@@ -3,7 +3,7 @@
 $project = isset($project) ? $project : null;
 ?>
 
-<h1 style="margin-top: 30px">
+<h1>
     <?=$project->title;?>
 </h1>
 
