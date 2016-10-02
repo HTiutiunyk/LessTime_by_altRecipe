@@ -1,0 +1,19 @@
+<?php
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+
+?>
+<?php $form = ActiveForm::begin(); ?>
+
+<?= $form->field($model, 'Title') ?>
+
+<?= $form->field($model, 'Description') ?>
+
+<?= $form->field($model, 'Priority') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
+    </div>
+
+<?php ActiveForm::end(); ?>

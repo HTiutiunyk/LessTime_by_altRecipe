@@ -27,10 +27,10 @@ class TaskController extends Controller
 
             // делаем что-то полезное с $model ...
 
-            return $this->render('entry-confirm', ['model' => $model]);
+            return $this->render('create-confirm', ['model' => $model]);
         } else {
             // либо страница отображается первый раз, либо есть ошибка в данных
-            return $this->render('entry', ['model' => $model]);
+            return $this->render('create', ['model' => $model]);
         }
     }
 }
