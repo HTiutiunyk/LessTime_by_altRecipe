@@ -31,6 +31,12 @@ $project = isset($project) ? $project : null;
                     <div class="task-list panel-body">
                         <div class="task-item well">
                             <?=$task->title;?> <span class="badge"><?=$task->priority;?></span><br>
+                            <?= Html::a('',
+                                ['/task/next',
+                                    'taskId' => $task->id,
+                                    'projectId' => $project->id
+                                ],
+                                ['class' => 'glyphicon glyphicon-arrow-right']);?>
                         </div>
                     </div>
                 <?endforeach;?>

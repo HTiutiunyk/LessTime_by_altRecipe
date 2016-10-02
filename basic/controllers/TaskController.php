@@ -48,4 +48,23 @@ class TaskController extends Controller
             return $this->render('create', ['model' => $model]);
         }
     }
+
+    public function actionNext() {
+        /** @var Tasks $currentTask */
+        $currentTask = Tasks::findOne(\Yii::$app->request->get('taskId'));
+        $projectId = \Yii::$app->request->get('projectId');
+        $currentStage = Stages::findOne($currentTask->stage_id);
+
+        $nextStage = Stages::findOne([
+            'order' => $currentStage->order + 1,
+            'project_id' => $currentStage->project_id
+        ]);
+
+        if ($nextStage != null) {
+            $currentTask->stage_id = $nextStage->id;
+        }
+        $currentTask->save();
+
+        return $this->redirect(['/project', 'id' => $projectId]);
+    }
 }
