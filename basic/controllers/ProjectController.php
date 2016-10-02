@@ -9,7 +9,7 @@
 namespace app\controllers;
 
 
-use app\models\Projects;
+use app\db\Projects;
 use yii\web\Controller;
 
 class ProjectController extends Controller

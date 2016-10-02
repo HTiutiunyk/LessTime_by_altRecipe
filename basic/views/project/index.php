@@ -1,5 +1,5 @@
 <?php
-/** @var \app\models\Projects $project */
+/** @var \app\db\Projects $project */
 $project = isset($project) ? $project : null;
 ?>
 
