@@ -13,7 +13,8 @@ $project = isset($project) ? $project : null;
 <div class="row">
     <h2 class="col-md-6">Описанние проекта: <?=$project->description;?></h2>
 
-    <?= Html::a('New task', Url::to(['/task/create'], true), ['class' => 'btn btn-primary']);?>
+    <?= Html::a('New task', Url::to(['/task/create', 'projectId' => $project->id], true),
+        ['class' => 'btn btn-primary']);?>
 <!--    <a class="btn btn-primary col-md-1" >New task</a>-->
 </div>
 

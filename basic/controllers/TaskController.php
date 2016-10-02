@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 
+use app\db\Tasks;
 use app\models\TaskCreation;
 use Yii;
 use yii\web\Controller;
@@ -23,9 +24,7 @@ class TaskController extends Controller
         $model = new TaskCreation();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            // данные в $model удачно проверены
-
-            // делаем что-то полезное с $model ...
+            $task = new Tasks();
 
             return $this->render('create-confirm', ['model' => $model]);
         } else {
