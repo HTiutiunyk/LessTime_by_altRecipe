@@ -14,9 +14,9 @@ class TaskCreation extends Model
     {
         return [
             [['title', 'priority'], 'required'],
-            ['title', 'text'],
+            ['title', 'string'],
             ['priority', 'number'],
-            ['description', 'text']
+            ['description', 'string']
         ];
     }
 }

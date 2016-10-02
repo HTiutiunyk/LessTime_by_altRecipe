@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 /** @var \app\models\TaskCreation $model */
 $model = isset($model) ? $model : null;
+
 ?>
 <p>Вы создали следущую задачу:</p>
 
