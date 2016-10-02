@@ -74,7 +74,8 @@ class m161001_221235_init_database extends Migration
                 hard_deadline TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
                 estimated_time INT(11),
                 actual_time INT(11),
-                priority INT(11)
+                priority INT(11),
+                stage_id INT(11)
             );
             CREATE UNIQUE INDEX task_id_uindex ON tasks (id);
             CREATE TABLE comments
