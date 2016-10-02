@@ -1,24 +1,26 @@
 <?php
 
-namespace app\models;
+namespace app\db;
 
 use Yii;
 
 /**
- * This is the model class for table "projects".
+ * This is the model class for table "stages".
  *
  * @property integer $id
+ * @property integer $project_id
  * @property string $title
  * @property string $description
+ * @property integer $order
  */
-class Projects extends \yii\db\ActiveRecord
+class Stages extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'projects';
+        return 'stages';
     }
 
     /**
@@ -27,9 +29,10 @@ class Projects extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['project_id', 'title'], 'required'],
+            [['project_id', 'order'], 'integer'],
             [['description'], 'string'],
-            [['title'], 'string', 'max' => 256],
+            [['title'], 'string', 'max' => 1024],
         ];
     }
 
@@ -40,8 +43,10 @@ class Projects extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'project_id' => 'Project ID',
             'title' => 'Title',
             'description' => 'Description',
+            'order' => 'Order',
         ];
     }
 }

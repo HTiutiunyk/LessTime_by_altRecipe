@@ -1,24 +1,24 @@
 <?php
 
-namespace app\models;
+namespace app\db;
 
 use Yii;
 
 /**
- * This is the model class for table "roles".
+ * This is the model class for table "projects".
  *
  * @property integer $id
  * @property string $title
- * @property string $system_tag
+ * @property string $description
  */
-class Roles extends \yii\db\ActiveRecord
+class Projects extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'roles';
+        return 'projects';
     }
 
     /**
@@ -28,7 +28,8 @@ class Roles extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['title', 'system_tag'], 'string', 'max' => 128],
+            [['description'], 'string'],
+            [['title'], 'string', 'max' => 256],
         ];
     }
 
@@ -40,7 +41,7 @@ class Roles extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Title',
-            'system_tag' => 'System Tag',
+            'description' => 'Description',
         ];
     }
 }

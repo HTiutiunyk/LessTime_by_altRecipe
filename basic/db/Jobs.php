@@ -1,24 +1,23 @@
 <?php
 
-namespace app\models;
+namespace app\db;
 
 use Yii;
 
 /**
- * This is the model class for table "comments".
+ * This is the model class for table "jobs".
  *
  * @property integer $id
- * @property string $text
- * @property integer $user_id
+ * @property string $title
  */
-class Comments extends \yii\db\ActiveRecord
+class Jobs extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'comments';
+        return 'jobs';
     }
 
     /**
@@ -27,8 +26,8 @@ class Comments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text'], 'string'],
-            [['user_id'], 'integer'],
+            [['title'], 'required'],
+            [['title'], 'string', 'max' => 128],
         ];
     }
 
@@ -39,8 +38,7 @@ class Comments extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'text' => 'Text',
-            'user_id' => 'User ID',
+            'title' => 'Title',
         ];
     }
 }

@@ -1,23 +1,24 @@
 <?php
 
-namespace app\models;
+namespace app\db;
 
 use Yii;
 
 /**
- * This is the model class for table "jobs".
+ * This is the model class for table "roles".
  *
  * @property integer $id
  * @property string $title
+ * @property string $system_tag
  */
-class Jobs extends \yii\db\ActiveRecord
+class Roles extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'jobs';
+        return 'roles';
     }
 
     /**
@@ -27,7 +28,7 @@ class Jobs extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['title'], 'string', 'max' => 128],
+            [['title', 'system_tag'], 'string', 'max' => 128],
         ];
     }
 
@@ -39,6 +40,7 @@ class Jobs extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Title',
+            'system_tag' => 'System Tag',
         ];
     }
 }
