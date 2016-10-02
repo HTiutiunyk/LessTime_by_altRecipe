@@ -18,7 +18,6 @@ $project = isset($project) ? $project : null;
         <div class="panel-heading">
             <h3>Project stage</h3>
         </div>
-        <hr>
         <div class="task-list panel-body">
             <div class="task-item panel">
                 Task name <span class="badge">4</span><br>
