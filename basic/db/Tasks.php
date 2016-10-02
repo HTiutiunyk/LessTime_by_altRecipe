@@ -2,7 +2,7 @@
 
 namespace app\db;
 
-use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "tasks".
@@ -16,8 +16,9 @@ use Yii;
  * @property integer $estimated_time
  * @property integer $actual_time
  * @property integer $priority
+ * @property  integer $stage_id
  */
-class Tasks extends \yii\db\ActiveRecord
+class Tasks extends ActiveRecord
 {
     /**
      * @inheritdoc
