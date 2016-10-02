@@ -138,4 +138,8 @@ class Users extends ActiveRecord implements IdentityInterface
         LogUtils::info($password, "kazak1377");
         return md5($password) === $this->password;
     }
+
+    public static function findByUsername($username) {
+        return static::findOne(['username' => $username]);
+    }
 }
