@@ -14,14 +14,16 @@ $project = isset($project) ? $project : null;
 <hr>
 
 <div class="wrapper row">
-    <div class="col-md-2 panel panel-primary">
-        <div class="panel-heading">
-            <h3>Project stage</h3>
-        </div>
-        <div class="task-list panel-body">
-            <div class="task-item panel">
-                Task name <span class="badge">4</span><br>
-                Maxim Kozachenko
+    <div class="col-md-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Project stage</h3>
+            </div>
+            <div class="task-list panel-body">
+                <div class="task-item panel">
+                    Task name <span class="badge">4</span><br>
+                    Maxim Kozachenko
+                </div>
             </div>
         </div>
     </div>
