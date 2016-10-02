@@ -28,7 +28,7 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'altRecipe',
-        'brandUrl' => Yii::$app->homeUrl,
+        'brandUrl' => ['/project', 'id' => 1],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
@@ -36,9 +36,9 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
+            ['label' => 'Project', 'url' => ['/project', 'id' => 1]],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+//            ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
