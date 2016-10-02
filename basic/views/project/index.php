@@ -1,5 +1,8 @@
 <?php
 /** @var \app\db\Projects $project */
+use yii\bootstrap\Html;
+use yii\helpers\Url;
+
 $project = isset($project) ? $project : null;
 ?>
 
@@ -7,10 +10,13 @@ $project = isset($project) ? $project : null;
     <?=$project->title;?>
 </h1>
 
-<details>
-    <summary>Описание проекта</summary>
-    <?=$project->description;?>
-</details>
+<div class="row">
+    <h2 class="col-md-6">Описанние проекта: <?=$project->description;?></h2>
+
+    <?= Html::a('New task', Url::to(['/task/create'], true), ['class' => 'btn btn-primary']);?>
+<!--    <a class="btn btn-primary col-md-1" >New task</a>-->
+</div>
+
 <hr>
 
 <div class="wrapper row">
