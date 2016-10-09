@@ -31,12 +31,24 @@ $project = isset($project) ? $project : null;
                     <div class="task-list panel-body">
                         <div class="task-item well">
                             <?=$task->title;?> <span class="badge"><?=$task->priority;?></span><br>
-                            <?= Html::a('',
-                                ['/task/next',
-                                    'taskId' => $task->id,
-                                    'projectId' => $project->id
-                                ],
-                                ['class' => 'glyphicon glyphicon-arrow-right']);?>
+                            <div class="row">
+                                <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                                    <?= Html::a('',
+                                        ['/task/prev',
+                                            'taskId' => $task->id,
+                                            'projectId' => $project->id
+                                        ],
+                                        ['class' => 'glyphicon glyphicon-arrow-left']);?>
+                                </div>
+                                <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                                    <?= Html::a('',
+                                        ['/task/next',
+                                            'taskId' => $task->id,
+                                            'projectId' => $project->id
+                                        ],
+                                        ['class' => 'glyphicon glyphicon-arrow-right']);?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <?endforeach;?>

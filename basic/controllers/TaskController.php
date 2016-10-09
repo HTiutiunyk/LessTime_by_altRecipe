@@ -67,4 +67,23 @@ class TaskController extends Controller
 
         return $this->redirect(['/project', 'id' => $projectId]);
     }
+
+    public function actionPrev() {
+        /** @var Tasks $currentTask */
+        $currentTask = Tasks::findOne(\Yii::$app->request->get('taskId'));
+        $projectId = \Yii::$app->request->get('projectId');
+        $currentStage = Stages::findOne($currentTask->stage_id);
+
+        $prevStage = Stages::findOne([
+            'order' => $currentStage->order - 1,
+            'project_id' => $currentStage->project_id
+        ]);
+
+        if ($prevStage != null) {
+            $currentTask->stage_id = $prevStage->id;
+        }
+        $currentTask->save();
+
+        return $this->redirect(['/project', 'id' => $projectId]);
+    }
 }
