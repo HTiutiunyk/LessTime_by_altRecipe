@@ -40,7 +40,7 @@ $project = isset($project) ? $project : null;
                                         ],
                                         ['class' => 'glyphicon glyphicon-arrow-left']);?>
                                 </div>
-                                <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                                <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6" style="float: right">
                                     <?= Html::a('',
                                         ['/task/next',
                                             'taskId' => $task->id,
@@ -48,6 +48,14 @@ $project = isset($project) ? $project : null;
                                         ],
                                         ['class' => 'glyphicon glyphicon-arrow-right']);?>
                                 </div>
+                            </div>
+                            <div class="row">
+                                <?= Html::a('',
+                                    ['/task/delete',
+                                        'taskId' => $task->id,
+                                        'projectId' => $project->id
+                                    ],
+                                    ['class' => 'glyphicon glyphicon-trash']);?>
                             </div>
                         </div>
                     </div>

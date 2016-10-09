@@ -86,4 +86,12 @@ class TaskController extends Controller
 
         return $this->redirect(['/project', 'id' => $projectId]);
     }
+
+    public function actionDelete() {
+        /** @var Tasks $currentTask */
+        $currentTask = Tasks::findOne(\Yii::$app->request->get('taskId'));
+        $projectId = \Yii::$app->request->get('projectId');
+        $currentTask->delete();
+        return $this->redirect(['/project', 'id' => $projectId]);
+    }
 }
