@@ -54,6 +54,7 @@ class Stages extends ActiveRecord
     public function getTasks() {
         return Tasks::find()
             ->where(['stage_id' => $this->id])
+            ->orderBy('priority DESC')
             ->all();
     }
 }
