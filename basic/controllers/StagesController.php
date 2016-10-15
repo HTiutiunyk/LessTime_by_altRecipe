@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\db\Projects;
 use app\db\Stages;
 use app\models\StagesView;
+use app\services\LogUtils;
 use Yii;
 use yii\web\Controller;
 use yii\web\HttpException;
@@ -24,6 +25,38 @@ class StagesController extends Controller {
             if ($stage->save()) {
                 return $this->redirect(['/project/settings', 'id' => $project->id]);
             } else {
+                throw new HttpException(
+                    "Something went wrong. You shouldn't see this error at all"
+                );
+            }
+        } else {
+            // render page first time, or display errors
+            return $this->render('view', ['model' => $model]);
+        }
+    }
+
+    public function actionCreate() {
+        $model = new StagesView(Stages::findOne(\Yii::$app->request->get('id')));
+        $project = Projects::findOne(Yii::$app->request->get('projectId'));
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $stage = new Stages();
+            $stage->project_id = $project->id;
+            $stage->title = $model->title;
+            $stage->description = $model->description;
+            /** @var Stages $lastStage */
+            $lastStage = Stages::find()
+                ->where(['project_id' => $project->id])
+                ->orderBy('order DESC')
+                ->all()[0];
+
+            $stage->order = $lastStage->order + 1;
+            LogUtils::info($stage, "STAGE");
+
+            if ($stage->save()) {
+                return $this->redirect(['/project/settings', 'id' => $project->id]);
+            } else {
+                LogUtils::info($stage, "STAGE");
                 throw new HttpException(
                     "Something went wrong. You shouldn't see this error at all"
                 );
