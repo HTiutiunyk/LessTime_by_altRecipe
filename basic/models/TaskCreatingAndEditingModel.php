@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\base\Model;
 
-class TaskCreation extends Model
+class TaskCreatingAndEditingModel extends Model
 {
     public $title;
     public $description;
@@ -15,7 +15,7 @@ class TaskCreation extends Model
         return [
             [['title', 'priority'], 'required'],
             ['title', 'string'],
-            ['priority', 'number'],
+            ['priority', 'number', 'max' => 10, 'min' => 1],
             ['description', 'string']
         ];
     }

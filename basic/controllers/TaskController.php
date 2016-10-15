@@ -12,8 +12,7 @@ namespace app\controllers;
 use app\db\Projects;
 use app\db\Stages;
 use app\db\Tasks;
-use app\models\TaskCreation;
-use app\models\TaskEditing;
+use app\models\TaskCreatingAndEditingModel;
 use Yii;
 use yii\web\Controller;
 use yii\web\HttpException;
@@ -25,7 +24,7 @@ class TaskController extends Controller
     }
 
     public function actionCreate() {
-        $model = new TaskCreation();
+        $model = new TaskCreatingAndEditingModel();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $task = new Tasks();
@@ -103,7 +102,7 @@ class TaskController extends Controller
         $currentTask = Tasks::findOne(\Yii::$app->request->get('taskId'));
         $project = Projects::findOne(\Yii::$app->request->get('projectId'));
 
-        $model = new TaskEditing();
+        $model = new TaskCreatingAndEditingModel();
         foreach ($model as $key => $value) {
             $model->$key = $currentTask->$key;
         }
