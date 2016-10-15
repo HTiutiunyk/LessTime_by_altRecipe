@@ -9,11 +9,14 @@
 namespace app\controllers;
 
 
+use app\db\Projects;
 use app\db\Stages;
 use app\db\Tasks;
 use app\models\TaskCreation;
+use app\models\TaskEditing;
 use Yii;
 use yii\web\Controller;
+use yii\web\HttpException;
 
 class TaskController extends Controller
 {
@@ -44,7 +47,7 @@ class TaskController extends Controller
                 return $this->render('create-confirm', ['model' => $model]);
             }
         } else {
-            // либо страница отображается первый раз, либо есть ошибка в данных
+            // render page first time, or display errors
             return $this->render('create', ['model' => $model]);
         }
     }
@@ -93,5 +96,34 @@ class TaskController extends Controller
         $projectId = \Yii::$app->request->get('projectId');
         $currentTask->delete();
         return $this->redirect(['/project', 'id' => $projectId]);
+    }
+
+    public function actionEdit() {
+        /** @var Tasks $currentTask */
+        $currentTask = Tasks::findOne(\Yii::$app->request->get('taskId'));
+        $project = Projects::findOne(\Yii::$app->request->get('projectId'));
+
+        $model = new TaskEditing();
+        foreach ($model as $key => $value) {
+            $model->$key = $currentTask->$key;
+        }
+
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            foreach ($model as $key => $value) {
+                $currentTask->$key = $model->$key;
+            }
+
+            if ($currentTask->save()) {
+                return $this->redirect(['/project', 'id' => $project->id]);
+            } else {
+                throw new HttpException(
+                    "Something went wrong. You shouldn't see this error at all"
+                );
+            }
+        } else {
+            // render page first time, or display errors
+            return $this->render('editing', ['task' => $model, 'project' => $project]);
+        }
     }
 }

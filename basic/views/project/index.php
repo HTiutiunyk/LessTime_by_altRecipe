@@ -56,6 +56,12 @@ $project = isset($project) ? $project : null;
                                         'projectId' => $project->id
                                     ],
                                     ['class' => 'glyphicon glyphicon-trash']);?>
+                                <?= Html::a('',
+                                    ['/task/edit',
+                                        'taskId' => $task->id,
+                                        'projectId' => $project->id
+                                    ],
+                                    ['class' => 'glyphicon glyphicon-pencil']);?>
                             </div>
                         </div>
                     </div>

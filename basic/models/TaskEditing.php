@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\base\Model;
 
-class TaskEdition extends Model
+class TaskEditing extends Model
 {
     public $title;
     public $description;
