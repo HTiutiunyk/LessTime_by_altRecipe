@@ -19,7 +19,7 @@ $project = isset($project) ? $project : null;
 
 <?= $form->field($task, 'description')->textarea() ?>
 <div class="col-md-2 col-xs-2 col-lg-2 col-sm-4">
-    <?= $form->field($task, 'priority')->input('number') ?>
+    <?= $form->field($task, 'priority')->input('number', ['min'=>1,'max'=>5]) ?>
 </div>
 
 

@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'description')->textarea() ?>
 <div class="col-md-2 col-xs-2 col-lg-2 col-sm-4">
-    <?= $form->field($model, 'priority')->input('number',['min = "1"', 'max = "10"']) ?>
+    <?= $form->field($model, 'priority')->input('number', ['min'=>1,'max'=>5]) ?>
 </div>
 
 
