@@ -14,6 +14,7 @@ use app\db\Stages;
 use app\db\Tasks;
 use app\models\TaskCreatingAndEditingModel;
 use Yii;
+use yii\base\UserException;
 use yii\web\Controller;
 use yii\web\HttpException;
 
@@ -116,7 +117,7 @@ class TaskController extends Controller
             if ($currentTask->save()) {
                 return $this->redirect(['/project', 'id' => $project->id]);
             } else {
-                throw new HttpException(
+                throw new UserException(
                     "Something went wrong. You shouldn't see this error at all"
                 );
             }
