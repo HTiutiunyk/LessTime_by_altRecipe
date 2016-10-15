@@ -2,7 +2,8 @@
 
 namespace app\db;
 
-use Yii;
+use yii\db\ActiveRecord;
+use yii\web\User;
 
 /**
  * This is the model class for table "roles".
@@ -11,7 +12,7 @@ use Yii;
  * @property string $title
  * @property string $system_tag
  */
-class Roles extends \yii\db\ActiveRecord
+class Roles extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -42,5 +43,18 @@ class Roles extends \yii\db\ActiveRecord
             'title' => 'Title',
             'system_tag' => 'System Tag',
         ];
+    }
+
+    public function getUsers() {
+        /** @var UserRoles[] $userRoles */
+        $userRoles = UserRoles::find()
+            ->where(['role_id' => $this->id])
+            ->all();
+
+        $users = [];
+        foreach ($userRoles as $userRole) {
+            $users[] = Users::findOne($userRole->user_id);
+        }
+        return $users;
     }
 }

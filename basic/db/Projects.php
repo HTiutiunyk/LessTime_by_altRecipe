@@ -52,4 +52,9 @@ class Projects extends ActiveRecord
             ->orderBy('order')
             ->all();
     }
+
+    public function getPm() {
+        $projectUsersPm = ProjectUsers::findOne(['project_id' => $this->id, 'is_pm' => 1]);
+        return Users::findOne(['id' => $projectUsersPm->user_id]);
+    }
 }

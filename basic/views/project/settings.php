@@ -1,9 +1,23 @@
 <?php
+use app\db\Projects;
+use app\db\ProjectUsers;
+use app\db\Users;
+use app\services\UserUtils;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-/** @var \app\db\Projects $project */
+/** @var Projects $project */
 $project = isset($project) ? $project : null;
 $model = isset($model) ? $model : null;
+/** @var Users[] $projectManagers */
+$projectManagers = isset($projectManagers) ? $projectManagers : null;
+$toPmSelector = UserUtils::usersToSelector($projectManagers, "Select project manager");
+
+/** @var ProjectUsers[] $projectEmployees */
+$projectEmployees = ProjectUsers::find()->where(['project_id' => $project->id, 'is_pm' => 0])->all();
+/** @var Users[] $projectManagers */
+$employees = isset($employees) ? $employees : [];
+$toEmployeesSelector = UserUtils::usersToSelector($employees, "Select employee");
 ?>
 
 <h1>Project settings</h1>
@@ -34,7 +48,35 @@ $model = isset($model) ? $model : null;
                 <h3>Roles</h3>
             </div>
             <div class="panel-body">
-
+                <form method="post" action="<?= Url::to(['/project/update-project-roles']);?>">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        PM:
+                        <?=Html::dropDownList('pm', $project->getPm()->id, $toPmSelector,
+                            ['class' => 'form-control col-xs-12 col-sm-12 col-md-12 col-lg-12']
+                        );?>
+                    </label>
+                    <div class="row">
+                        <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            Employees:
+                            <?= Html::a('',
+                                ['/project/add-employee'],
+                                ['class' => 'glyphicon glyphicon-plus']
+                            );?>
+                        </label>
+                    </div>
+                    <?php foreach ($projectEmployees as $pe):?>
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <?=Html::dropDownList('pe--'.$pe->id, $pe->user_id, $toEmployeesSelector,
+                            ['class' => 'form-control col-xs-12 col-sm-12 col-md-12 col-lg-12']
+                        );?>
+                        <?= Html::a('',
+                            ['/project/remove-employee','puId' => $pe->id],
+                            ['class' => 'glyphicon glyphicon-trash']
+                        );?>
+                    </label>
+                    <?php endforeach;?>
+                    <input type="submit" class="btn btn-success">
+                </form>
             </div>
         </div>
     </div>
