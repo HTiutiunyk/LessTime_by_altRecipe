@@ -35,7 +35,7 @@ $toEmployeesSelector = UserUtils::usersToSelector($employees, "Select employee")
                 <?= $form->field($model, 'description')->textarea() ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
+                    <?= Html::submitButton('Save changes', ['class' => 'btn btn-primary']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -83,7 +83,7 @@ $toEmployeesSelector = UserUtils::usersToSelector($employees, "Select employee")
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3>Stages</h3>
+                <h3 style="display: inline-block">Stages</h3>
                 <?= Html::a('',
                     ['/stages/create',
                         'projectId' => $project->id],
