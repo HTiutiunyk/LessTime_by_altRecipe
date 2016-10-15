@@ -30,7 +30,11 @@ $project = isset($project) ? $project : null;
                 <?php foreach ($stage->tasks as $task): ?>
                     <div class="task-list panel-body">
                         <div class="task-item well">
-                            <?=$task->title;?> <span class="badge"><?=$task->priority;?></span><br>
+                            <?= Html::a($task->title,
+                                ['/task/view',
+                                    'taskId' => $task->id,
+                                    'projectId' => $project->id
+                                ]);?> <span class="badge"><?=$task->priority;?></span><br>
                             <div class="row">
                                 <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
                                     <?= Html::a('',
