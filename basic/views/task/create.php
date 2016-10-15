@@ -10,9 +10,11 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'title') ?>
 
-<?= $form->field($model, 'description') ?>
+<?= $form->field($model, 'description')->textarea() ?>
+<div class="col-md-2 col-xs-2 col-lg-2 col-sm-4">
+    <?= $form->field($model, 'priority')->input('number',['min = "1"', 'max = "10"']) ?>
+</div>
 
-<?= $form->field($model, 'priority') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>

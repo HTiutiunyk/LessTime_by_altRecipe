@@ -129,6 +129,6 @@ class TaskController extends Controller
     public function actionView() {
         $task = Tasks::findOne(\Yii::$app->request->get('taskId'));
         $project = Projects::findOne(\Yii::$app->request->get('projectId'));
-        return $this->$this->render('view', ['task' => $task, 'project' => $project]);
+        return $this->render('view', ['task' => $task, 'project' => $project]);
     }
 }

@@ -17,9 +17,11 @@ $project = isset($project) ? $project : null;
 
 <?= $form->field($task, 'title') ?>
 
-<?= $form->field($task, 'description') ?>
+<?= $form->field($task, 'description')->textarea() ?>
+<div class="col-md-2 col-xs-2 col-lg-2 col-sm-4">
+    <?= $form->field($task, 'priority')->input('number') ?>
+</div>
 
-<?= $form->field($task, 'priority') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
