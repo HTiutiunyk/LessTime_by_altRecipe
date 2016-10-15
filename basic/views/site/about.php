@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="about-item col-md-4 col-sm-6 col-lg-4 col-xs-12">
                 <h2>Product evolution</h2>
-                <p>Every day, when something changes: we are improving every detail, automating workflow and saving time of all project participants.</p>
+                <p>Every day something changing: we are improving every detail, automating workflow and saving time of all project participants.</p>
             </div>
         </div>
     </div>

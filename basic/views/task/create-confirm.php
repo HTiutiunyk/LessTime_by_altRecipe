@@ -4,7 +4,7 @@ use yii\helpers\Html;
 $model = isset($model) ? $model : null;
 
 ?>
-<p>Вы создали следущую задачу:</p>
+<p>Task details:</p>
 
 <ul>
     <li><label>Title</label>: <?= Html::encode($model->title) ?></li>
