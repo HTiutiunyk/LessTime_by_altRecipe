@@ -6,15 +6,27 @@ use yii\helpers\Url;
 $project = isset($project) ? $project : null;
 ?>
 
-<h1>
-    <?=$project->title;?>
-</h1>
+<div class="row">
+    <div class="col-xs-11 col-xm-11 col-md-11 col-lg-11">
+        <h1>
+            <?=$project->title;?>
+        </h1>
+    </div>
+    <div class="col-xs-1 col-xm-1 col-md-1 col-lg-1">
+        <?= Html::a('', Url::to(['/project/settings', 'id' => $project->id], true),
+            ['class' => 'btn btn-primary pull-right glyphicon glyphicon-cog']);?>
+    </div>
+</div>
+
 
 <div class="row">
-    <h2 class="col-md-6">Описанние проекта: <?=$project->description;?></h2>
-
-    <?= Html::a('New task', Url::to(['/task/create', 'projectId' => $project->id], true),
-        ['class' => 'btn btn-primary']);?>
+    <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+        <h2 class="col-md-6">Описанние проекта: <?=$project->description;?></h2>
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right">
+        <?= Html::a('New task', Url::to(['/task/create', 'projectId' => $project->id], true),
+            ['class' => 'btn btn-primary pull-right']);?>
+    </div>
 <!--    <a class="btn btn-primary col-md-1" >New task</a>-->
 </div>
 
