@@ -42,6 +42,11 @@ $model = isset($model) ? $model : null;
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3>Stages</h3>
+                <?= Html::a('',
+                    ['/stages/create',
+                        'projectId' => $project->id],
+                    ['class' => 'btn btn-success glyphicon glyphicon-plus']
+                ) ;?>
             </div>
             <div class="panel-body">
                 <?php foreach ($project->stages as $stage): ?>
