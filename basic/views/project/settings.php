@@ -65,6 +65,12 @@ $model = isset($model) ? $model : null;
                                         'projectId' => $project->id],
                                 ['class' => 'glyphicon glyphicon-pencil']
                                 ) ;?>
+                                <?= Html::a('',
+                                    ['/stages/delete',
+                                        'id' => $stage->id,
+                                        'projectId' => $project->id],
+                                    ['class' => 'glyphicon glyphicon-trash']
+                                ) ;?>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\db\Projects;
 use app\models\ProjectEdit;
 use Yii;
+use yii\base\UserException;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\HttpException;
@@ -44,7 +45,7 @@ class ProjectController extends Controller
             if ($project->save()) {
                 return $this->render('settings', ['model' => $model, 'project' => $project]);
             } else {
-                throw new HttpException(
+                throw new UserException(
                     "Something went wrong. You shouldn't see this error at all"
                 );
             }
