@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\db\Projects;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -60,7 +61,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $projects = Projects::find()->all();
+        return $this->render('index', ['projects' => $projects]);
     }
 
     /**
