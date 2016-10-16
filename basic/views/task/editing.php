@@ -8,7 +8,7 @@ $task = isset($task) ? $task: null;
 /** @var \app\db\Projects $project */
 $project = isset($project) ? $project : null;
 
-\app\services\LogUtils::info([$task, $project] , "kazak");
+$usersSelector = isset($usersSelector) ? $usersSelector : [];
 ?>
 
     <h1>Edit task <?= $task->title ?></h1>
@@ -18,6 +18,8 @@ $project = isset($project) ? $project : null;
 <?= $form->field($task, 'title') ?>
 
 <?= $form->field($task, 'description')->textarea() ?>
+
+<?= $form->field($task, 'user_id')->dropDownList($usersSelector) ?>
 <div class="col-md-2 col-xs-2 col-lg-2 col-sm-4">
     <?= $form->field($task, 'priority')->input('number', ['min'=>1,'max'=>5]) ?>
 </div>
