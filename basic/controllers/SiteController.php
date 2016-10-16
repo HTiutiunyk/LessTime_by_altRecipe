@@ -65,6 +65,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/site/login']);
+        }
         $currentUser = Users::findOne(Yii::$app->user->id);
         $currentUserId = $currentUser->id;
         if ($currentUser->hasRole(UserUtils::ROLE_ADMIN)) {
