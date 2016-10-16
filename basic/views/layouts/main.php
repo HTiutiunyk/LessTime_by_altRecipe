@@ -27,7 +27,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Projects dashboard',
+        'brandLabel' => 'Dashboard',
         'brandUrl' => ['/site/index'],
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
