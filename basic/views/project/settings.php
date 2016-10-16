@@ -20,7 +20,12 @@ $employees = isset($employees) ? $employees : [];
 $toEmployeesSelector = UserUtils::usersToSelector($employees, "Select employee");
 ?>
 
-<h1>Project settings</h1>
+<h1 style="display: inline-block">Project settings</h1>
+<?= Html::a(
+    'Cancel',
+    Url::to(['/project', 'id' => $project->id]),
+    ['class' => 'btn btn-secondary pull-right']
+) ?>
 <div class="row">
     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
         <div class="panel panel-primary">

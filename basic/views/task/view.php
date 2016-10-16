@@ -6,6 +6,7 @@ use yii\helpers\Url;
 $task = isset($task) ? $task: null;
 /** @var \app\db\Projects $project */
 $project = isset($project) ? $project : null;
+$usersSelector = isset($usersSelector) ? $usersSelector : [];
 ?>
 
 
@@ -18,7 +19,7 @@ $project = isset($project) ? $project : null;
         <div class="panel-body">
             <span><?= $task->description ?></span>
             <div class="well well-sm">
-                <p>Assign to: -HERE IT WILL BE- </p>
+                <p>Assign to: <?=$task->user_id;?></p>
             </div>
             <div class="panel panel-info">
                 <div class="panel-heading">
