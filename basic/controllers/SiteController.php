@@ -3,7 +3,11 @@
 namespace app\controllers;
 
 use app\db\Projects;
+use app\db\Users;
+use app\services\LogUtils;
+use app\services\UserUtils;
 use Yii;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -61,7 +65,25 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $projects = Projects::find()->all();
+        $currentUser = Users::findOne(Yii::$app->user->id);
+        $currentUserId = $currentUser->id;
+        if ($currentUser->hasRole(UserUtils::ROLE_ADMIN)) {
+            $projects = Projects::find()->all();
+        } else {
+            $currentUserProjectIds = (new Query())
+                ->select(['project_id'])
+                ->distinct()
+                ->from('project_users')
+                ->where("user_id ='$currentUserId'")
+                ->all();
+
+            $projects = [];
+
+            foreach ($currentUserProjectIds as $cupi) {
+                $projects[] = Projects::findOne($cupi['project_id']);
+            }
+            LogUtils::info($projects, "PROJECTS");
+        }
         return $this->render('index', ['projects' => $projects]);
     }
 

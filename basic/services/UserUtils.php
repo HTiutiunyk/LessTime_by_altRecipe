@@ -15,6 +15,7 @@ class UserUtils
 {
     const ROLE_PM = "ROLE_PM";
     const ROLE_EMPLOYEE = "ROLE_EMPLOYEE";
+    const ROLE_ADMIN = "ROLE_ADMIN";
 
     /**
      * @param Users[] $users

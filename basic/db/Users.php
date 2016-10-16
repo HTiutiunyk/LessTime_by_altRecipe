@@ -142,4 +142,19 @@ class Users extends ActiveRecord implements IdentityInterface
     public static function findByUsername($username) {
         return static::findOne(['username' => $username]);
     }
+
+    public function hasRole($roleTag) {
+        $role = Roles::findOne(['system_tag' => $roleTag]);
+        /** @var UserRoles[] $uroles */
+        $uroles = UserRoles::find()
+            ->where(['role_id' => $role->id])
+            ->all();
+
+        foreach ($uroles as $urole) {
+            if ($urole->user_id == $this->id) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
