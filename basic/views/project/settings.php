@@ -75,7 +75,7 @@ $toEmployeesSelector = UserUtils::usersToSelector($employees, "Select employee")
                         );?>
                     </label>
                     <?php endforeach;?>
-                    <input type="submit" class="btn btn-success">
+                    <input type="submit" value="Save changes" class="btn btn-success">
                 </form>
             </div>
         </div>
