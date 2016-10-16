@@ -1,5 +1,6 @@
 <?php
 /** @var \app\db\Projects $project */
+use app\db\Users;
 use yii\bootstrap\Html;
 use yii\helpers\Url;
 
@@ -78,6 +79,7 @@ $project = isset($project) ? $project : null;
                                         'projectId' => $project->id
                                     ],
                                     ['class' => 'glyphicon glyphicon-pencil']);?>
+                                <span><?= Users::findOne($task->user_id)->full_name;?></span>
                             </div>
                         </div>
                     </div>

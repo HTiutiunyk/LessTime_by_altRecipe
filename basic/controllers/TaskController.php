@@ -10,9 +10,12 @@ namespace app\controllers;
 
 
 use app\db\Projects;
+use app\db\ProjectUsers;
 use app\db\Stages;
 use app\db\Tasks;
+use app\db\Users;
 use app\models\TaskCreatingAndEditingModel;
+use app\services\UserUtils;
 use Yii;
 use yii\base\UserException;
 use yii\web\Controller;
@@ -26,10 +29,20 @@ class TaskController extends Controller
 
     public function actionCreate() {
         $model = new TaskCreatingAndEditingModel();
+        $projectId = \Yii::$app->request->get('projectId');
+        $project = Projects::findOne($projectId);
+        /** @var ProjectUsers[] $projectEmployees */
+        $projectEmployees = ProjectUsers::find()
+            ->where(['project_id' => $project->id, 'is_pm' => 0])
+            ->all();
+        $possibleEmployees = [];
+        foreach ($projectEmployees as $pe) {
+            $possibleEmployees[] = Users::findOne($pe->user_id);
+        }
+        $assignSelector = UserUtils::usersToSelector($possibleEmployees, "Select responsible");
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $task = new Tasks();
-            $projectId = \Yii::$app->request->get('projectId');
 
             $firstStage = Stages::find()
                 ->where(['project_id' => $projectId])
@@ -44,11 +57,13 @@ class TaskController extends Controller
             if ($task->save()) {
                 return $this->redirect(['/project', 'id' => $projectId]);
             } else {
-                return $this->render('create-confirm', ['model' => $model]);
+                throw new UserException(
+                    "Something went wrong. You shouldn't see this error at all"
+                );
             }
         } else {
             // render page first time, or display errors
-            return $this->render('create', ['model' => $model]);
+            return $this->render('create', ['model' => $model, 'usersSelector' => $assignSelector]);
         }
     }
 
@@ -107,6 +122,15 @@ class TaskController extends Controller
         foreach ($model as $key => $value) {
             $model->$key = $currentTask->$key;
         }
+        /** @var ProjectUsers[] $projectEmployees */
+        $projectEmployees = ProjectUsers::find()
+            ->where(['project_id' => $project->id, 'is_pm' => 0])
+            ->all();
+        $possibleEmployees = [];
+        foreach ($projectEmployees as $pe) {
+            $possibleEmployees[] = Users::findOne($pe->user_id);
+        }
+        $assignSelector = UserUtils::usersToSelector($possibleEmployees, "Select responsible");
 
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -123,7 +147,11 @@ class TaskController extends Controller
             }
         } else {
             // render page first time, or display errors
-            return $this->render('editing', ['task' => $model, 'project' => $project]);
+            return $this->render('editing', [
+                'task' => $model,
+                'project' => $project,
+                'usersSelector' => $assignSelector
+            ]);
         }
     }
 
