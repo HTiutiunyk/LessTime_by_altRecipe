@@ -1,4 +1,5 @@
 <?php
+use app\db\Users;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -19,7 +20,7 @@ $usersSelector = isset($usersSelector) ? $usersSelector : [];
         <div class="panel-body">
             <span><?= $task->description ?></span>
             <div class="well well-sm">
-                <p>Assign to: <?=$task->user_id;?></p>
+                <p>Assign to: <?=Users::findOne($task->user_id)->full_name;?></p>
             </div>
             <div class="panel panel-info">
                 <div class="panel-heading">
