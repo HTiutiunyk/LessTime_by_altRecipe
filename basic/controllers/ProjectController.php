@@ -83,6 +83,11 @@ class ProjectController extends Controller
                     'project_id' => Yii::$app->session->get('currentProject')->id,
                     'is_pm' => 1
                 ]);
+                if (empty($pm)) {
+                    $pm = new ProjectUsers();
+                    $pm->project_id = Yii::$app->session->get('currentProject')->id;
+                    $pm->is_pm = 1;
+                }
                 $pm->user_id = $value;
                 $pm->save();
             }
@@ -106,6 +111,39 @@ class ProjectController extends Controller
         $pe->delete();
         return $this->redirect(['/project/settings',
             'id' => Yii::$app->session->get('currentProject')->id]);
+    }
+
+    public function actionCreate() {
+        $model = new ProjectEdit();
+        $project = new Projects();
+        $projectManagers = Roles::findOne(['system_tag' => UserUtils::ROLE_PM])->getUsers();
+        $employees = Roles::findOne(['system_tag' => UserUtils::ROLE_EMPLOYEE])->getUsers();
+        foreach ($model as $key => $value) {
+            $model->$key = $project->$key;
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            foreach ($model as $key => $value) {
+                $project->$key = $model->$key;
+            }
+
+            if ($project->save()) {
+                Yii::$app->session->set('currentProject', $project);
+                return $this->redirect(['/project/settings',
+                    'id' => Yii::$app->session->get('currentProject')->id]);
+            } else {
+                throw new UserException(
+                    "Something went wrong. You shouldn't see this error at all"
+                );
+            }
+        } else {
+            // render page first time, or display errors
+            return $this->render('settings', [
+                'model' => $model,
+                'project' => $project,
+                'projectManagers' => $projectManagers,
+                 'employees' => $employees
+            ]);
+        }
     }
 
     private function getProjectFromRequest($type='get') {
